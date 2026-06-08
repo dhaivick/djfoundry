@@ -1,5 +1,6 @@
 {
   "name": "@dhaivick/ui",
+  "type": "module",
   "version": "0.0.1",
   "private": false,
   "main": "./dist/index.cjs",
@@ -10,7 +11,8 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./styles": "./dist/index.css"
   },
   "files": [
     "dist"
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "rollup-plugin-postcss": "^4.0.2"
   }
 }
