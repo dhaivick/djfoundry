@@ -1,5 +1,6 @@
 import typescript from '@rollup/plugin-typescript'
 import dts from 'rollup-plugin-dts'
+import postcss from 'rollup-plugin-postcss'
 
 const config = [
 {
@@ -8,13 +9,23 @@ const config = [
     { file: 'dist/index.js', format: 'esm' },
     { file: 'dist/index.cjs', format: 'cjs' }
     ],
-    plugins: [typescript()],
-    external: ['react', 'react-dom']
+    plugins: [
+        postcss({
+            modules: true,
+            extract: 'index.css',
+            minimize: true,
+        }),
+        typescript(),
+    ],
+    external: ['react', 'react/jsx-runtime', 'react-dom']
 },
 {
     input: 'src/index.ts',
     output: { file: 'dist/index.d.ts', format: 'esm' },
-    plugins: [dts()]
+    plugins: [
+        postcss({ modules: true }),
+        dts(),
+    ]
 }
 ]
 

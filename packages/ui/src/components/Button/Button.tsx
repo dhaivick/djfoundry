@@ -1,8 +1,56 @@
+import styles from './Button.module.css'
+
+type Size = 'sm' | 'md' | 'lg'
+
 type ButtonProps = {
+    /** Content rendered inside the button. */
     children: React.ReactNode
+    /** Click handler. Not called when the button is disabled or loading. */
     onClick?: () => void
+    /** Controls padding and font size. Defaults to `'md'`. */
+    size?: Size
+    /** Replaces the label with a spinner and disables the button. Use during async operations. */
+    loading?: boolean
+    /** Prevents interaction and applies a muted style. */
+    disabled?: boolean
+    /** Additional class name merged onto the root element. */
+    className?: string
+    /** Inline styles applied to the root element. */
+    style?: React.CSSProperties
 }
 
-export function Button({ children, onClick }: ButtonProps) {
-    return <button onClick={onClick}>{children}</button>
+const spinnerSize: Record<Size, number> = { sm: 12, md: 14, lg: 18 }
+
+function Spinner({ size }: { size: Size }) {
+    const d = spinnerSize[size]
+    return (
+        <svg width={d} height={d} viewBox="0 0 16 16" fill="none" className={styles.spinner}>
+            <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="2" strokeOpacity="0.3" />
+            <path d="M8 2a6 6 0 0 1 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 8 8"
+                    to="360 8 8"
+                    dur="0.7s"
+                    repeatCount="indefinite"
+                />
+            </path>
+        </svg>
+    )
+}
+
+export function Button({ children, onClick, size = 'md', loading, disabled, className, style }: ButtonProps) {
+    return (
+        <button
+            onClick={onClick}
+            disabled={disabled || loading}
+            aria-busy={loading || undefined}
+            style={style}
+            className={[styles.button, styles[size], className].filter(Boolean).join(' ')}
+        >
+            {loading && <Spinner size={size} />}
+            <span className={loading ? styles.labelHidden : styles.label}>{children}</span>
+        </button>
+    )
 }

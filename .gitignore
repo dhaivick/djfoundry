@@ -2,3 +2,7 @@ node_modules
 dist
 *.tsbuildinfo
 .turbo
+*storybook.log
+storybook-static
+.DS_Store
+.vscode
