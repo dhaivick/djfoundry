@@ -15,3 +15,38 @@ export const Default: Story = {
         children: 'Click me',
     },
 }
+
+export const Small: Story = {
+    args: {
+        children: 'Click me',
+        size: 'sm',
+    },
+}
+
+export const Medium: Story = {
+    args: {
+        children: 'Click me',
+        size: 'md',
+    },
+}
+
+export const Large: Story = {
+    args: {
+        children: 'Click me',
+        size: 'lg',
+    },
+}
+
+export const Loading: Story = {
+    args: {
+        children: 'Saving',
+        loading: true,
+    },
+}
+
+export const Disabled: Story = {
+    args: {
+        children: 'Click me',
+        disabled: true,
+    },
+}
