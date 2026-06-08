@@ -1,0 +1,37 @@
+.card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.shadow {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.header {
+    padding: inherit;
+    border-bottom: 1px solid #e5e7eb;
+    font-weight: 600;
+    color: #111827;
+}
+
+.body {
+    color: #374151;
+}
+
+.footer {
+    padding: inherit;
+    border-top: 1px solid #e5e7eb;
+    color: #6b7280;
+}
+
+/* padding sizes */
+.sm .header, .sm .footer { padding: 10px 14px; }
+.sm .body                { padding: 14px; }
+
+.md .header, .md .footer { padding: 14px 20px; }
+.md .body                { padding: 20px; }
+
+.lg .header, .lg .footer { padding: 18px 28px; }
+.lg .body                { padding: 28px; }
