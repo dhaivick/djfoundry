@@ -1,0 +1,111 @@
+.fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.legend {
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 8px;
+    padding: 0;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+}
+
+.option {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #d1d5db;
+    border-radius: 50%;
+    background-color: #ffffff;
+    flex-shrink: 0;
+    transition: border-color 0.15s ease;
+}
+
+.dot::after {
+    content: '';
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.15s ease;
+}
+
+.input:checked + .dot {
+    border-color: #3b82f6;
+}
+
+.input:checked + .dot::after {
+    background-color: #3b82f6;
+}
+
+.input:focus-visible + .dot {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+.option:hover .input:not(:disabled) + .dot {
+    border-color: #3b82f6;
+}
+
+.label {
+    color: #374151;
+    line-height: 1;
+}
+
+.error {
+    color: #b91c1c;
+    margin-top: 4px;
+}
+
+/* ── sizes ── */
+
+.sm .legend  { font-size: 12px; }
+.sm .options { gap: 6px; }
+.sm .option  { gap: 6px; }
+.sm .dot     { width: 14px; height: 14px; }
+.sm .dot::after { width: 6px; height: 6px; }
+.sm .label   { font-size: 12px; }
+.sm .error   { font-size: 11px; }
+
+.md .legend  { font-size: 13px; }
+.md .options { gap: 8px; }
+.md .option  { gap: 8px; }
+.md .dot     { width: 16px; height: 16px; }
+.md .dot::after { width: 8px; height: 8px; }
+.md .label   { font-size: 14px; }
+.md .error   { font-size: 12px; }
+
+.lg .legend  { font-size: 14px; }
+.lg .options { gap: 10px; }
+.lg .option  { gap: 10px; }
+.lg .dot     { width: 20px; height: 20px; }
+.lg .dot::after { width: 10px; height: 10px; }
+.lg .label   { font-size: 16px; }
+.lg .error   { font-size: 13px; }

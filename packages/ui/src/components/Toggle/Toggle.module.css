@@ -1,0 +1,141 @@
+.wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+/* ── track ── */
+
+.track {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background-color: #d1d5db;
+    flex-shrink: 0;
+    transition: background-color 0.2s ease;
+}
+
+.input:checked + .track {
+    background-color: #2563eb;
+}
+
+.input:focus-visible + .track {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+.thumb {
+    position: absolute;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+    z-index: 1;
+}
+
+/* CSS variables set on .wrapper are inherited by .thumb */
+.input:checked + .track .thumb {
+    transform: translateX(var(--toggle-translate, 16px));
+}
+
+/* ── labeled variant ── */
+
+.trackLabeled .enabledText,
+.trackLabeled .disabledText {
+    position: absolute;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    line-height: 1;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+}
+
+.trackLabeled .enabledText {
+    color: #ffffff;
+    opacity: 0;
+}
+
+.trackLabeled .disabledText {
+    color: #9ca3af;
+    opacity: 1;
+}
+
+.input:checked + .trackLabeled .enabledText {
+    opacity: 1;
+}
+
+.input:checked + .trackLabeled .disabledText {
+    opacity: 0;
+}
+
+.input:checked + .trackLabeled .thumb {
+    transform: translateX(var(--toggle-translate-labeled, 32px));
+}
+
+/* ── outer label ── */
+
+.label {
+    color: #374151;
+    line-height: 1;
+}
+
+/* ── sizes ── */
+
+.sm {
+    --toggle-translate: 12px;
+    --toggle-translate-labeled: 24px;
+}
+.sm .track         { width: 28px; height: 16px; }
+.sm .thumb         { width: 12px; height: 12px; left: 2px; }
+.sm .trackLabeled  { width: 44px; height: 20px; }
+.sm .trackLabeled .thumb { width: 14px; height: 14px; left: 3px; }
+.sm .trackLabeled .enabledText,
+.sm .trackLabeled .disabledText { font-size: 9px; }
+.sm .trackLabeled .enabledText  { left: 5px; }
+.sm .trackLabeled .disabledText { right: 5px; }
+.sm .label { font-size: 12px; }
+
+.md {
+    --toggle-translate: 16px;
+    --toggle-translate-labeled: 32px;
+}
+.md .track         { width: 36px; height: 20px; }
+.md .thumb         { width: 16px; height: 16px; left: 2px; }
+.md .trackLabeled  { width: 56px; height: 24px; }
+.md .trackLabeled .thumb { width: 18px; height: 18px; left: 3px; }
+.md .trackLabeled .enabledText,
+.md .trackLabeled .disabledText { font-size: 10px; }
+.md .trackLabeled .enabledText  { left: 7px; }
+.md .trackLabeled .disabledText { right: 7px; }
+.md .label { font-size: 14px; }
+
+.lg {
+    --toggle-translate: 22px;
+    --toggle-translate-labeled: 42px;
+}
+.lg .track         { width: 48px; height: 26px; }
+.lg .thumb         { width: 22px; height: 22px; left: 2px; }
+.lg .trackLabeled  { width: 72px; height: 30px; }
+.lg .trackLabeled .thumb { width: 24px; height: 24px; left: 3px; }
+.lg .trackLabeled .enabledText,
+.lg .trackLabeled .disabledText { font-size: 11px; }
+.lg .trackLabeled .enabledText  { left: 8px; }
+.lg .trackLabeled .disabledText { right: 8px; }
+.lg .label { font-size: 16px; }

@@ -3,12 +3,19 @@ import styles from './Button.module.css'
 type Size = 'sm' | 'md' | 'lg'
 
 type ButtonProps = {
+    /** Content rendered inside the button. */
     children: React.ReactNode
+    /** Click handler. Not called when the button is disabled or loading. */
     onClick?: () => void
+    /** Controls padding and font size. Defaults to `'md'`. */
     size?: Size
+    /** Replaces the label with a spinner and disables the button. Use during async operations. */
     loading?: boolean
+    /** Prevents interaction and applies a muted style. */
     disabled?: boolean
+    /** Additional class name merged onto the root element. */
     className?: string
+    /** Inline styles applied to the root element. */
     style?: React.CSSProperties
 }
 
@@ -38,6 +45,7 @@ export function Button({ children, onClick, size = 'md', loading, disabled, clas
         <button
             onClick={onClick}
             disabled={disabled || loading}
+            aria-busy={loading || undefined}
             style={style}
             className={[styles.button, styles[size], className].filter(Boolean).join(' ')}
         >

@@ -6,8 +6,8 @@
     font-family: inherit;
     font-weight: 500;
     border-radius: 4px;
-    border: 1px solid #3b82f6;
-    background-color: #3b82f6;
+    border: 1px solid #2563eb;
+    background-color: #2563eb;
     color: #ffffff;
     cursor: pointer;
     line-height: 1;
@@ -15,8 +15,8 @@
 }
 
 .button:hover:not(:disabled) {
-    background-color: #2563eb;
-    border-color: #2563eb;
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
 }
 
 .button:focus-visible {
@@ -54,7 +54,7 @@
 }
 
 .labelHidden {
-    visibility: hidden;
+    opacity: 0;
 }
 
 .spinner {

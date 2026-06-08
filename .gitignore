@@ -4,3 +4,5 @@ dist
 .turbo
 *storybook.log
 storybook-static
+.DS_Store
+.vscode
