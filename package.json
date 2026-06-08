@@ -30,9 +30,9 @@
     "scripts": {
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
-        "test": "vitest",
-        "test:run": "vitest run",
-        "test:coverage": "vitest run --coverage",
+        "test": "vitest --project storybook",
+        "test:run": "vitest run --project storybook",
+        "test:coverage": "vitest run --project storybook --coverage",
         "chromatic": "chromatic --exit-zero-on-changes"
     }
 }
