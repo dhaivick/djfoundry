@@ -1,11 +1,24 @@
-.badge {
+.wrapper {
+    position: relative;
+    display: inline-flex;
+}
+
+.indicator {
+    position: absolute;
+    z-index: 1;
     display: inline-flex;
     align-items: center;
-    font-weight: 500;
+    justify-content: center;
+    font-weight: 600;
     border-radius: 999px;
     white-space: nowrap;
     line-height: 1;
+    border: 2px solid white;
+    box-sizing: border-box;
 }
+
+.topRight    { top: 0;    right: 0; transform: translate(50%, -50%); }
+.bottomRight { bottom: 0; right: 0; transform: translate(50%,  50%); }
 
 /* variants */
 .default { background-color: #f3f4f6; color: #374151; }
@@ -14,7 +27,12 @@
 .error   { background-color: #fee2e2; color: #b91c1c; }
 .info    { background-color: #dbeafe; color: #1e40af; }
 
-/* sizes */
-.sm { padding: 2px 8px;  font-size: 11px; }
-.md { padding: 3px 10px; font-size: 12px; }
-.lg { padding: 4px 12px; font-size: 13px; }
+/* sizes (with label) */
+.sm { padding: 1px 5px;  font-size: 10px; min-width: 16px; }
+.md { padding: 2px 6px;  font-size: 11px; min-width: 18px; }
+.lg { padding: 2px 8px;  font-size: 12px; min-width: 20px; }
+
+/* dot (no label) — override padding/dimensions to a fixed circle */
+.dot.sm { padding: 0; width: 8px;  height: 8px;  min-width: unset; }
+.dot.md { padding: 0; width: 10px; height: 10px; min-width: unset; }
+.dot.lg { padding: 0; width: 12px; height: 12px; min-width: unset; }

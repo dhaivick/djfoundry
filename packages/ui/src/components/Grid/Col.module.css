@@ -1,0 +1,31 @@
+/*
+ * Responsive column spans via CSS custom properties + fallback chains.
+ * Each breakpoint reads its own var and falls back to the next smaller one,
+ * so only the breakpoints that change need to be set.
+ *
+ * e.g.  <Col xs={12} md={6} lg={4} />
+ *         xs/sm  → span 12  (full width)
+ *         md     → span 6   (half)
+ *         lg/xl  → span 4   (third)
+ */
+
+.col {
+    min-width: 0;
+    grid-column: span var(--xs, 12);
+}
+
+@media (min-width: 576px) {
+    .col { grid-column: span var(--sm, var(--xs, 12)); }
+}
+
+@media (min-width: 768px) {
+    .col { grid-column: span var(--md, var(--sm, var(--xs, 12))); }
+}
+
+@media (min-width: 992px) {
+    .col { grid-column: span var(--lg, var(--md, var(--sm, var(--xs, 12)))); }
+}
+
+@media (min-width: 1200px) {
+    .col { grid-column: span var(--xl, var(--lg, var(--md, var(--sm, var(--xs, 12))))); }
+}

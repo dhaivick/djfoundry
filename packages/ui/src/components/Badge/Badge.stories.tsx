@@ -9,7 +9,7 @@ const meta: Meta<typeof Badge> = {
     parameters: {
         docs: {
             description: {
-                component: `A small inline label for status, category, or count. Five semantic color variants and three sizes.
+                component: `Wraps any element and overlays a small indicator badge at a corner. Use \`label\` for a numbered/text badge or omit it for a dot.
 
 ## Import
 \`\`\`tsx
@@ -23,17 +23,23 @@ import { Badge } from '@dhaivick/ui'
             control: 'radio',
             options: ['default', 'success', 'warning', 'error', 'info'],
             description: 'Color variant.',
-            table: { defaultValue: { summary: 'default' } },
+            table: { defaultValue: { summary: 'error' } },
         },
         size: {
             control: 'radio',
             options: ['sm', 'md', 'lg'],
-            description: 'Controls padding and font size.',
+            description: 'Indicator size.',
             table: { defaultValue: { summary: 'md' } },
         },
-        children: {
+        placement: {
+            control: 'radio',
+            options: ['top-right', 'bottom-right'],
+            description: 'Corner the badge is anchored to.',
+            table: { defaultValue: { summary: 'top-right' } },
+        },
+        label: {
             control: 'text',
-            description: 'Badge label text.',
+            description: 'Badge indicator text or number. Omit for a dot.',
         },
     },
 }
@@ -42,43 +48,114 @@ export default meta
 
 type Story = StoryObj<typeof Badge>
 
+const BoxIcon = () => (
+    <div
+        style={{
+            width: 40,
+            height: 40,
+            borderRadius: 8,
+            background: '#e5e7eb',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 20,
+        }}
+    >
+        🔔
+    </div>
+)
+
 export const Default: Story = {
     tags: ['!dev'],
     parameters: {
         docs: {
-            source: { code: `import { Badge } from '@dhaivick/ui'\n\n<Badge>Default</Badge>` },
+            source: {
+                code: `import { Badge } from '@dhaivick/ui'
+
+<Badge label="3">
+  <button>Notifications</button>
+</Badge>`,
+            },
         },
     },
-    args: { children: 'Default' },
+    args: { label: '3' },
+    render: (args) => (
+        <Badge {...args}>
+            <BoxIcon />
+        </Badge>
+    ),
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement)
-        await expect(canvas.getByText('Default')).toBeVisible()
+        await expect(canvas.getByText('3')).toBeVisible()
     },
+}
+
+export const Dot: Story = {
+    tags: ['!dev'],
+    parameters: {
+        docs: {
+            description: { story: 'Omit `label` to render a plain dot indicator.' },
+            source: {
+                code: `import { Badge } from '@dhaivick/ui'
+
+<Badge variant="success">
+  <button>Status</button>
+</Badge>`,
+            },
+        },
+    },
+    args: { variant: 'success' },
+    render: (args) => (
+        <Badge {...args}>
+            <BoxIcon />
+        </Badge>
+    ),
 }
 
 export const Variants: Story = {
     tags: ['!dev'],
     parameters: {
         docs: {
-            description: { story: 'Five semantic variants for different contexts.' },
+            description: { story: 'Five semantic color variants.' },
             source: {
                 code: `import { Badge } from '@dhaivick/ui'
 
-<Badge variant="default">Default</Badge>
-<Badge variant="success">Success</Badge>
-<Badge variant="warning">Warning</Badge>
-<Badge variant="error">Error</Badge>
-<Badge variant="info">Info</Badge>`,
+<Badge label="1" variant="default"><BoxIcon /></Badge>
+<Badge label="2" variant="success"><BoxIcon /></Badge>
+<Badge label="3" variant="warning"><BoxIcon /></Badge>
+<Badge label="4" variant="error"><BoxIcon /></Badge>
+<Badge label="5" variant="info"><BoxIcon /></Badge>`,
             },
         },
     },
     render: () => (
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            <Badge variant="default">Default</Badge>
-            <Badge variant="success">Success</Badge>
-            <Badge variant="warning">Warning</Badge>
-            <Badge variant="error">Error</Badge>
-            <Badge variant="info">Info</Badge>
+        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', padding: 12 }}>
+            <Badge label="1" variant="default"><BoxIcon /></Badge>
+            <Badge label="2" variant="success"><BoxIcon /></Badge>
+            <Badge label="3" variant="warning"><BoxIcon /></Badge>
+            <Badge label="4" variant="error"><BoxIcon /></Badge>
+            <Badge label="5" variant="info"><BoxIcon /></Badge>
+        </div>
+    ),
+}
+
+export const Placements: Story = {
+    tags: ['!dev'],
+    parameters: {
+        docs: {
+            description: { story: '`top-right` (default) and `bottom-right` placements.' },
+            source: {
+                code: `import { Badge } from '@dhaivick/ui'
+
+<Badge label="9" placement="top-right"><BoxIcon /></Badge>
+<Badge label="9" placement="bottom-right"><BoxIcon /></Badge>`,
+            },
+        },
+    },
+    render: () => (
+        <div style={{ display: 'flex', gap: 24, padding: 12 }}>
+            <Badge label="9" placement="top-right"><BoxIcon /></Badge>
+            <Badge label="9" placement="bottom-right"><BoxIcon /></Badge>
         </div>
     ),
 }
@@ -87,53 +164,21 @@ export const Sizes: Story = {
     tags: ['!dev'],
     parameters: {
         docs: {
-            description: { story: 'Three sizes — `sm`, `md` (default), and `lg`.' },
+            description: { story: 'Three indicator sizes — `sm`, `md` (default), and `lg`.' },
             source: {
                 code: `import { Badge } from '@dhaivick/ui'
 
-<Badge size="sm">Small</Badge>
-<Badge size="md">Medium</Badge>
-<Badge size="lg">Large</Badge>`,
+<Badge label="5" size="sm"><BoxIcon /></Badge>
+<Badge label="5" size="md"><BoxIcon /></Badge>
+<Badge label="5" size="lg"><BoxIcon /></Badge>`,
             },
         },
     },
     render: () => (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <Badge size="sm">Small</Badge>
-            <Badge size="md">Medium</Badge>
-            <Badge size="lg">Large</Badge>
+        <div style={{ display: 'flex', gap: 24, alignItems: 'center', padding: 12 }}>
+            <Badge label="5" size="sm"><BoxIcon /></Badge>
+            <Badge label="5" size="md"><BoxIcon /></Badge>
+            <Badge label="5" size="lg"><BoxIcon /></Badge>
         </div>
     ),
-}
-
-export const Success: Story = {
-    tags: ['!dev'],
-    parameters: {
-        docs: { source: { code: `import { Badge } from '@dhaivick/ui'\n\n<Badge variant="success">Active</Badge>` } },
-    },
-    args: { children: 'Active', variant: 'success' },
-}
-
-export const Warning: Story = {
-    tags: ['!dev'],
-    parameters: {
-        docs: { source: { code: `import { Badge } from '@dhaivick/ui'\n\n<Badge variant="warning">Pending</Badge>` } },
-    },
-    args: { children: 'Pending', variant: 'warning' },
-}
-
-export const Error: Story = {
-    tags: ['!dev'],
-    parameters: {
-        docs: { source: { code: `import { Badge } from '@dhaivick/ui'\n\n<Badge variant="error">Failed</Badge>` } },
-    },
-    args: { children: 'Failed', variant: 'error' },
-}
-
-export const Info: Story = {
-    tags: ['!dev'],
-    parameters: {
-        docs: { source: { code: `import { Badge } from '@dhaivick/ui'\n\n<Badge variant="info">New</Badge>` } },
-    },
-    args: { children: 'New', variant: 'info' },
 }

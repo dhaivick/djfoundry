@@ -1,4 +1,4 @@
-import { expect, userEvent, within } from 'storybook/test'
+import { expect, userEvent, waitFor, within } from 'storybook/test'
 import type { Meta, StoryObj } from '@storybook/react'
 import { Code } from './Code'
 
@@ -116,5 +116,25 @@ export const CopyInteraction: Story = {
         const copyBtn = canvas.getByRole('button', { name: 'Copy code' })
         await userEvent.click(copyBtn)
         await expect(await canvas.findByText('Copied!')).toBeVisible()
+    },
+}
+
+export const CopyReverts: Story = {
+    tags: ['!dev'],
+    parameters: {
+        docs: {
+            description: { story: 'The "Copied!" label reverts to "Copy" after 2 seconds.' },
+            source: {
+                code: `import { Code } from '@dhaivick/ui'\n\n<Code block language="bash">pnpm add @dhaivick/ui</Code>`,
+            },
+        },
+    },
+    args: { block: true, language: 'bash', children: 'pnpm add @dhaivick/ui' },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement)
+        const copyBtn = canvas.getByRole('button', { name: 'Copy code' })
+        await userEvent.click(copyBtn)
+        await expect(await canvas.findByText('Copied!')).toBeVisible()
+        await waitFor(() => expect(copyBtn).toHaveTextContent('Copy'), { timeout: 3000 })
     },
 }
